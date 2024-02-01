@@ -31,9 +31,7 @@ givenName: ${name}
 userPassword: ${hashpass}
 END
 )
-
-
-    
+ 
     echo "$ldif_user" | ldapadd -x -D $admin -w $pwd -H $serv | tee -a $logfile
     if [ "$?" -eq 0 ]; then
         echo $uname added successfully
