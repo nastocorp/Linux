@@ -21,7 +21,7 @@ fi
 while IFS="," read -r name uname passwd objclass posixGroup; do
     hashpass=$(slappasswd -s $passwd)
 
-    ldif_user=$(cat <<EOF
+    ldif_user=$(cat <<-END
 dn: uid=${uname},ou=People,${DN}
 objectClass: ${objclass}
 uid: ${uname}
@@ -29,8 +29,9 @@ cn: ${uname}
 sn: ${uname}
 givenName: ${name}
 userPassword: ${hashpass}
-EOF
-    )
+END
+)
+
 
     
     echo "$ldif_user" | ldapadd -x -D $admin -w $pwd -H $serv | tee -a $logfile
